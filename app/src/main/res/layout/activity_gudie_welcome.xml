@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/landing_backgrond"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null">
+
+        </android.support.v4.view.ViewPager>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button_enter"
+                    android:layout_width="126dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="75dp"
+                    android:background="@drawable/button_shape"
+                    android:text="立即体验"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+
+        </FrameLayout>
+
+
+        <com.example.mrzheng.lanlanapp.Guide.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp" />
+
+
+
+</RelativeLayout>

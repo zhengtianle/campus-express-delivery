@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <com.example.mrzheng.lanlanapp.View.HeaderZoomLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <!--头部背景-->
+            <ImageView
+                android:id="@+id/iv_bg"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@drawable/welcomimg_bg"
+                />
+
+            <!--头部用户信息-->
+            <LinearLayout
+                android:id="@+id/ll_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_count"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/author"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="懒懒用户"
+                    android:textColor="@color/white"
+                    android:textSize="16.0sp"/>
+
+
+            </LinearLayout>
+
+            <!--发布、接收、好评度-->
+            <LinearLayout
+                android:id="@+id/ll_count"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_bg"
+                android:layout_marginBottom="23.0dip"
+                android:layout_marginTop="18.0dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.9"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="16.0sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:alpha="0.5"
+                        android:text="发布"
+                        android:textColor="@color/white"
+                        android:textSize="12.0sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dip"
+                    android:layout_height="38.0dip"
+                    android:background="@color/grey"/>
+
+                <LinearLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.9"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="16.0sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:alpha="0.5"
+                        android:text="接收"
+                        android:textColor="@color/white"
+                        android:textSize="12.0sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dip"
+                    android:layout_height="38.0dip"
+                    android:background="@color/grey"/>
+
+                <LinearLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.9"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="16.0sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:alpha="0.5"
+                        android:text="好评度"
+                        android:textColor="@color/white"
+                        android:textSize="12.0sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--内容-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_count"
+                android:orientation="vertical"
+                >
+
+                <!--收藏、历史、夜间-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/data"
+                        android:gravity="center"
+                        android:text="任务"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/clock"
+                        android:gravity="center"
+                        android:text="历史"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/lights"
+                        android:gravity="center"
+                        android:text="日/夜间"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <!--消息通知-->
+                <RelativeLayout
+                    style="@style/MineFunctionRl"
+                    >
+
+                    <TextView
+                        style="@style/MineFunctionTvLeft"
+                        android:text="消息通知"
+                        android:textColor="@color/color_222222"
+                        />
+
+                    <ImageView
+                        android:id="@+id/image_message"
+                        style="@style/MineFunctionArrow"
+                        android:background="@drawable/more"
+                        />
+
+                    <TextView
+                        style="@style/MineFunctionTvRight"
+                        android:textColor="#cc0000"
+                        android:layout_toLeftOf="@+id/image_message"
+                        android:text="+0"/>
+
+                </RelativeLayout>
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <!--转账记录-->
+                <RelativeLayout
+                    style="@style/MineFunctionRl"
+                    >
+
+                    <TextView
+                        style="@style/MineFunctionTvLeft"
+                        android:text="转账记录"
+                        android:textColor="@color/color_222222"
+                        />
+
+                    <ImageView
+                        style="@style/MineFunctionArrow"
+                        android:background="@drawable/more"
+                        />
+
+
+                </RelativeLayout>
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+
+
+                <View
+                    android:layout_marginLeft="15dp"
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <!--用户反馈-->
+                <RelativeLayout
+                    style="@style/MineFunctionRl"
+                    >
+
+                    <TextView
+                        style="@style/MineFunctionTvLeft"
+                        android:text="用户反馈"
+                        android:textColor="@color/color_222222"
+                        />
+
+                    <ImageView
+                        style="@style/MineFunctionArrow"
+                        android:background="@drawable/more"
+                        />
+
+                </RelativeLayout>
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <!--系统设置-->
+                <RelativeLayout
+                    style="@style/MineFunctionRl"
+                    >
+
+                    <TextView
+                        style="@style/MineFunctionTvLeft"
+                        android:text="系统设置"
+                        android:textColor="@color/color_222222"
+                        />
+
+                    <ImageView
+                        style="@style/MineFunctionArrow"
+                        android:background="@drawable/more"
+                        />
+
+                </RelativeLayout>
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <RelativeLayout
+                    style="@style/MineFunctionRl">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="退出登录"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:textColor="#cc0000"
+                        android:paddingRight="10dp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#F3F5F4"
+                    />
+
+                <View
+                    style="@style/MineFunctionDivider"
+                    />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </com.example.mrzheng.lanlanapp.View.HeaderZoomLayout>
+
+</LinearLayout>

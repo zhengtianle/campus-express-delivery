@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_main_item_home"
+        android:checked="true"
+        android:icon="@drawable/all"
+        android:title="主页"/>
+
+    <item
+        android:id="@+id/menu_main_item_deliver"
+        android:icon="@drawable/deliver"
+        android:title="快递"/>
+
+    <item
+        android:id="@+id/menu_main_item_mine"
+        android:icon="@drawable/smile"
+        android:title="我的"/>
+
+    <item
+        android:id="@+id/menu_main_item_more"
+        android:icon="@drawable/information"
+        android:title="关于"/>
+
+</menu>

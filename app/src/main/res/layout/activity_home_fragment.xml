@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lee="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frame_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <!--<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_common"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/green"
+        app:layout_behavior="@string/title_view_behavior">
+
+    </android.support.v7.widget.Toolbar>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_main_navigation"
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/light_orange"
+        android:clickable="true"
+        android:stateListAnimator="@null"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
+        app:fabSize="auto"
+        app:layout_anchor="@id/frame_main"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="@string/fab_vertical_behavior"
+        app:srcCompat="@drawable/add"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_main_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom"
+        android:background="@color/green"
+        android:elevation="5dp"
+        app:layout_behavior="@string/bottom_view_behavior"
+        app:menu="@menu/menu_bottom_navigation_view"/>
+
+</android.support.design.widget.CoordinatorLayout>

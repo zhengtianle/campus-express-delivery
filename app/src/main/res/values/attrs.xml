@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RotateMenuView">
+        <attr name="horizontal_margin" format="dimension" />
+        <attr name="vertical_margin" format="dimension" />
+        <attr name="center_rotate" format="integer" />
+        <attr name="item_rotate" format="integer" />
+        <attr name="back_ground_color" format="color" />
+        <attr name="center_add_src" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="RotateMenuItem">
+        <attr name="img_src" format="reference" />
+        <attr name="img_width" format="dimension" />
+        <attr name="img_height" format="dimension" />
+        <attr name="bottom_text" format="string" />
+        <attr name="bottom_text_size" format="dimension" />
+        <attr name="bottom_text_color" format="color" />
+        <attr name="bottom_text_margin" format="dimension" />
+    </declare-styleable>
+
+    <!--TabIndicator的参数设置-->
+    <declare-styleable name="PagerSlidingTab">
+        <attr name="indicatorColor" format="color" />
+        <attr name="underlineColor" format="color" />
+        <attr name="dividerColor" format="color" />
+        <attr name="indicatorHeight" format="dimension" />
+        <attr name="underlineHeight" format="dimension" />
+        <attr name="pst_dividerPadding" format="dimension" />
+        <attr name="tabPaddingLeftRight" format="dimension" />
+        <attr name="scrollOffset" format="dimension" />
+        <attr name="tabBackgrounds" format="reference" />
+        <attr name="sameLine" format="boolean" />
+        <attr name="pst_textAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="IndexBar">
+        <attr name="indexTextSize" format="dimension" />
+        <attr name="indexTextColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="riv_corner_radius" format="dimension" />
+        <attr name="riv_corner_radius_top_left" format="dimension" />
+        <attr name="riv_corner_radius_top_right" format="dimension" />
+        <attr name="riv_corner_radius_bottom_right" format="dimension" />
+        <attr name="riv_corner_radius_bottom_left" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+    </declare-styleable>
+
+</resources>
