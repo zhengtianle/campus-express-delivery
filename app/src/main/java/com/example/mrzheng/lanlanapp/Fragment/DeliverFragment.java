@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mrzheng.lanlanapp.Activity.DeliverHistoryActivity;
 import com.example.mrzheng.lanlanapp.Activity.DeliverSearchActivity;
 import com.example.mrzheng.lanlanapp.Activity.HomeActivity;
 import com.example.mrzheng.lanlanapp.Database.History;
@@ -48,9 +49,9 @@ public class DeliverFragment extends android.support.v4.app.Fragment implements 
     private List<History> unCheckList = new ArrayList<>();
     private RAdapter<History> adapter;
 
-    private android.support.v4.app.FragmentManager fragmentManager;
+   /* private android.support.v4.app.FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private DeliverHistoryFragment historyFragment;
+    private DeliverHistoryFragment historyFragment;*/
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -104,20 +105,20 @@ public class DeliverFragment extends android.support.v4.app.Fragment implements 
         rvUnCheck.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         rvUnCheck.setAdapter(adapter);
 
-        loadFragment();
+        //loadFragment();
 
 
         return v;
     }
 
-    public void loadFragment(){
+    /*public void loadFragment(){
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         historyFragment = new DeliverHistoryFragment();
         fragmentTransaction.add(R.id.fragment_deliver,historyFragment).commit();
 
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -127,8 +128,9 @@ public class DeliverFragment extends android.support.v4.app.Fragment implements 
                 startActivity(new Intent(getContext(), DeliverSearchActivity.class));
                 break;
             case R.id.tv_post:
-                fragmentTransaction.show(historyFragment);
-                HomeActivity.currentMainFragment = historyFragment;
+                /*fragmentTransaction.show(historyFragment);
+                HomeActivity.currentMainFragment = historyFragment;*/
+                startActivity(new Intent(getContext(), DeliverHistoryActivity.class));
                 break;
             case R.id.tv_sweep:
                 startCaptureActivity();

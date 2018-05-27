@@ -41,6 +41,7 @@
         <activity android:name="com.google.zxing.activity.CaptureActivity"/>
         <activity android:name=".Activity.CompanyActivity"/>
         <activity android:name=".Activity.ResultActivity"/>
+        <activity android:name=".Activity.DeliverHistoryActivity"/>
     </application>
 
     <!--网络通信权限-->
