@@ -72,5 +72,6 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 
 }

@@ -56,6 +56,15 @@
                     android:textColor="@color/white"
                     android:textSize="16.0sp"/>
 
+                <TextView
+                    android:id="@+id/change_user_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@drawable/more"
+                    android:text="编辑资料"
+                    android:textColor="@color/white"
+                    />
 
             </LinearLayout>
 
@@ -165,7 +174,7 @@
                 android:orientation="vertical"
                 >
 
-                <!--收藏、历史、夜间-->
+                <!--发布的任务、历史、接收的任务-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
@@ -173,6 +182,7 @@
                     >
 
                     <TextView
+                        android:id="@+id/tv_task_release"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -180,7 +190,7 @@
                         android:drawablePadding="5dp"
                         android:drawableTop="@drawable/data"
                         android:gravity="center"
-                        android:text="任务"
+                        android:text="发布的任务"
                         android:textColor="@color/grey"
                         android:textSize="12sp"
                         />
@@ -199,14 +209,15 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_task_accept"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/lights"
+                        android:drawableTop="@drawable/task_accept"
                         android:gravity="center"
-                        android:text="日/夜间"
+                        android:text="接收的任务"
                         android:textColor="@color/grey"
                         android:textSize="12sp"
                         />
@@ -308,6 +319,7 @@
 
                 <!--用户反馈-->
                 <RelativeLayout
+                    android:id="@+id/user_feedback"
                     style="@style/MineFunctionRl"
                     >
 
@@ -371,6 +383,7 @@
                     />
 
                 <RelativeLayout
+                    android:id="@+id/log_off"
                     style="@style/MineFunctionRl">
 
                     <TextView

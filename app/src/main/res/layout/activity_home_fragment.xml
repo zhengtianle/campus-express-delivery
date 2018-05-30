@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:lee="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -23,7 +24,43 @@
 
     </android.support.v7.widget.Toolbar>-->
 
-    <android.support.design.widget.FloatingActionButton
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_below="@id/bottom_main_navigation"
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="5dp"
+        app:layout_anchor="@id/frame_main"
+        app:layout_anchorGravity="bottom|end">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/add_receive"
+            fab:fab_title="代收任务" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/add_send"
+            fab:fab_title="代发任务" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +76,7 @@
         app:layout_anchor="@id/frame_main"
         app:layout_anchorGravity="bottom|end"
         app:layout_behavior="@string/fab_vertical_behavior"
-        app:srcCompat="@drawable/add"/>
+        app:srcCompat="@drawable/add"/>-->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_main_navigation"

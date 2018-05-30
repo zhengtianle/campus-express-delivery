@@ -104,6 +104,7 @@ public class RegisterNextActivity extends AppCompatActivity{
                     progressBar.setVisibility(View.VISIBLE);
                     Intent intent = new Intent(RegisterNextActivity.this,HomeActivity.class);
                     startActivity(intent);
+                    finish();
                     progressBar.setVisibility(View.GONE);
                 }
 

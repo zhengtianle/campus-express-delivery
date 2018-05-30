@@ -1,24 +1,39 @@
 package com.example.mrzheng.lanlanapp.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mrzheng.lanlanapp.Activity.AddSendDeliverNextActivity;
+import com.example.mrzheng.lanlanapp.Activity.ChangeUserInformationActivity;
+import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
+import com.example.mrzheng.lanlanapp.Activity.MyAcceptTaskActivity;
+import com.example.mrzheng.lanlanapp.Activity.MyReleaseTaskActivity;
 import com.example.mrzheng.lanlanapp.R;
 
 /**
  * Created by mrzheng on 18-5-2.
  */
 
-public class MineFragment extends android.support.v4.app.Fragment {
+public class MineFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
+
+    private TextView mReleaseTask;
+    private TextView mAcceptTask;
+    private RelativeLayout userFeedback;
+    private RelativeLayout logOff;
+    private TextView changeUserInformation;
 
     public MineFragment() {
     }
@@ -44,8 +59,57 @@ public class MineFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout fo this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View v = inflater.inflate(R.layout.fragment_mine, container, false);
+
+        mReleaseTask = (TextView)v.findViewById(R.id.tv_task_release);
+        mAcceptTask = (TextView)v.findViewById(R.id.tv_task_accept);
+        userFeedback = (RelativeLayout)v.findViewById(R.id.user_feedback);
+        logOff = (RelativeLayout)v.findViewById(R.id.log_off);
+        changeUserInformation = (TextView)v.findViewById(R.id.change_user_information);
+
+        setClickListener();
+
+        return v;
     }
+
+    public void setClickListener(){
+
+        changeUserInformation.setOnClickListener(this);
+        mReleaseTask.setOnClickListener(this);
+        mAcceptTask.setOnClickListener(this);
+        userFeedback.setOnClickListener(this);
+        logOff.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+
+            case R.id.change_user_information:
+                startActivity(new Intent(getContext(),ChangeUserInformationActivity.class));
+                break;
+            case R.id.tv_task_release:
+                Intent intent = new Intent(getContext(),MyReleaseTaskActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("return","HomeActivity.class");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.tv_task_accept:
+                startActivity(new Intent(getContext(), MyAcceptTaskActivity.class));
+                break;
+            case R.id.user_feedback:
+                Toast.makeText(getContext(),"请联系本APP作者",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.log_off:
+                //由于全部的activity都是singleTask模式，只要到登录界面，就会把在其上的所有活动都出栈(销毁)
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                break;
+
+        }
+    }
+
 
 }

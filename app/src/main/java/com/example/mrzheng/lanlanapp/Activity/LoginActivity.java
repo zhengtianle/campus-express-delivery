@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity{
                     Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                     progressBar.setVisibility(View.GONE);
                     startActivity(intent);
+                    finish();
 
                     //创建子线程，进行Post传输
                     /*new Thread(new MyThread()).start();

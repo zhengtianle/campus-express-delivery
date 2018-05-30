@@ -13,7 +13,9 @@
     <color name="green">#00c853</color>
 
     <color name="grey">#bfbfbf</color>
+    <color name="half_black">#808080</color>
     <color name="white">#fff</color>
+    <color name="white_pressed">#f1f1f1</color>
     <color name="link_blue">#4d94ff</color>
     <color name="darkRed">#cc0000</color>
 
@@ -34,5 +36,9 @@
     <color name="viewfinder_laser">#FF03A9F4</color>
     <color name="viewfinder_laser_transparent">#0003A9F4</color>
     <color name="orange_700">#F57C00</color>
+
+    <!--时间选择器-->
+    <color name="text1">#59B29C</color>
+    <color name="text2">#333333</color>
 
 </resources>

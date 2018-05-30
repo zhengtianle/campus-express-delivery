@@ -1,23 +1,28 @@
 package com.example.mrzheng.lanlanapp.Activity;
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.mrzheng.lanlanapp.Fragment.DeliverFragment;
 import com.example.mrzheng.lanlanapp.Fragment.MineFragment;
 import com.example.mrzheng.lanlanapp.Fragment.MoreFragment;
 import com.example.mrzheng.lanlanapp.Fragment.TaskFragment;
 import com.example.mrzheng.lanlanapp.R;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
 
 import static com.example.mrzheng.lanlanapp.R.id.menu_main_item_home;
@@ -26,19 +31,18 @@ import static com.example.mrzheng.lanlanapp.R.id.menu_main_item_home;
  * Created by mrzheng on 18-5-2.
  */
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
     private FrameLayout mFrameLayout;
     private TaskFragment taskFragment;
     private DeliverFragment deliverFragment;
     private MineFragment mineFragment;
     private MoreFragment moreFragment;
-    //private Toolbar mToolbar;
     //private LinearLayout tvLinearLayout;
     //private CommonBehavior mToolBarBehavior;
     private BottomNavigationView mBottomMainNavigation;
     private CommonBehavior mBottomBehavior;
-    private CommonBehavior mFloatButtonBehavior;
-    private FloatingActionButton mFloatingActionButton;
+    //private CommonBehavior mFloatButtonBehavior;
+    //private FloatingActionButton mFloatingActionButton;
 
     private ClipData.Item itemHome;
     private ClipData.Item itemDeliver;
@@ -48,6 +52,12 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     public static Fragment currentMainFragment;//全局变量保存当前fragment
     public static FragmentManager manager;
     public static FragmentTransaction transaction;
+
+    private FloatingActionsMenu menuMultipleActions;
+    private FloatingActionButton addSendDeliver;
+    private FloatingActionButton addReceiveDeliver;
+
+    private long firstPressedTime;
 
 
 
@@ -62,26 +72,27 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
 
         mFrameLayout = (FrameLayout) findViewById(R.id.frame_main);
-        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab_mode);
-        //mToolbar = (Toolbar) findViewById(R.id.toolbar_common);
-        //tvLinearLayout = (LinearLayout) findViewById(R.id.linear_task);
+        //mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab_mode);
         mBottomMainNavigation = (BottomNavigationView) findViewById(R.id.bottom_main_navigation);
+        menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         loadFragment(savedInstanceState);
 
-        //mToolBarBehavior = CommonBehavior.from(mToolbar);
         //mToolBarBehavior = CommonBehavior.from(tvLinearLayout);
 
         mBottomBehavior = CommonBehavior.from(mBottomMainNavigation);
-        mFloatButtonBehavior = CommonBehavior.from(mFloatingActionButton);
+        //mFloatButtonBehavior = CommonBehavior.from(mFloatingActionButton);
         MenuItem item = mBottomMainNavigation.getMenu().getItem(0);
         onNavigationItemSelected(item);//默认选中第一个
         mBottomMainNavigation.setOnNavigationItemSelectedListener(this);
 
-        //mToolBarBehavior.setMinScrollY(20).setScrollYDistance(100).setDuration(1000).setInterpolator(new BounceInterpolator());
         mBottomBehavior.setMinScrollY(20).setScrollYDistance(100).setDuration(1000).setInterpolator(new BounceInterpolator());
-        mFloatButtonBehavior.setMinScrollY(20).setScrollYDistance(100).setDuration(1000).setInterpolator(new BounceInterpolator());
+        //mFloatButtonBehavior.setMinScrollY(20).setScrollYDistance(100).setDuration(1000).setInterpolator(new BounceInterpolator());
 
 
+        addSendDeliver = (FloatingActionButton)findViewById(R.id.action_b);
+        addReceiveDeliver = (FloatingActionButton)findViewById(R.id.action_a);
+        addSendDeliver.setOnClickListener(this);
+        addReceiveDeliver.setOnClickListener(this);
 
     }
 
@@ -96,9 +107,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 /**
                  * 浮动按钮和底部导航栏都可以滑动
                  */
-                mFloatingActionButton.setVisibility(View.VISIBLE);
+                //mFloatingActionButton.setVisibility(View.VISIBLE);
                 mBottomBehavior.setCanScroll(true);
-                mFloatButtonBehavior.setCanScroll(true);
+                //mFloatButtonBehavior.setCanScroll(true);
+                menuMultipleActions.setVisibility(View.VISIBLE);
 
                 transaction.show(taskFragment).hide(deliverFragment)
                         .hide(mineFragment).hide(moreFragment);
@@ -107,7 +119,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.menu_main_item_deliver:
 
-                mFloatingActionButton.setVisibility(View.GONE);
+                //mFloatingActionButton.setVisibility(View.GONE);
+                menuMultipleActions.setVisibility(View.GONE);
 
                 mBottomBehavior.setCanScroll(false);
                 transaction.show(deliverFragment).hide(mineFragment)
@@ -116,7 +129,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 currentMainFragment = deliverFragment;
                 break;
             case R.id.menu_main_item_mine:
-                mFloatingActionButton.setVisibility(View.GONE);
+                //mFloatingActionButton.setVisibility(View.GONE);
+                menuMultipleActions.setVisibility(View.GONE);
 
                 mBottomBehavior.setCanScroll(false);
                 transaction.show(mineFragment).hide(deliverFragment)
@@ -125,7 +139,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 currentMainFragment = deliverFragment;
                 break;
             case R.id.menu_main_item_more:
-                mFloatingActionButton.setVisibility(View.GONE);
+                //mFloatingActionButton.setVisibility(View.GONE);
+                menuMultipleActions.setVisibility(View.GONE);
 
                 mBottomBehavior.setCanScroll(false);
                 transaction.show(moreFragment).hide(mineFragment)
@@ -176,5 +191,31 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
+    @Override
+    public void onClick(View v) {
 
+        switch (v.getId()){
+            case R.id.action_a:
+                //代收
+                startActivity(new Intent(HomeActivity.this,AddReceiveDeliverActivity.class));
+                break;
+            case R.id.action_b:
+                //代发
+                startActivity(new Intent(HomeActivity.this,AddSendDeliverActivity.class));
+                break;
+        }
+
+    }
+
+    // System.currentTimeMillis() 当前系统的时间
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - firstPressedTime < 2000) {
+            finish();
+            System.exit(0);
+        } else {
+            Toast.makeText(HomeActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            firstPressedTime = System.currentTimeMillis();
+        }
+    }
 }
