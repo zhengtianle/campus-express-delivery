@@ -3,9 +3,11 @@ package com.example.mrzheng.lanlanapp.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mrzheng.lanlanapp.Activity.AddReceiveDeliverNextActivity;
 import com.example.mrzheng.lanlanapp.Extra.Extras;
 import com.example.mrzheng.lanlanapp.Http.HttpClient;
 import com.example.mrzheng.lanlanapp.Model.SearchInfo;
@@ -27,6 +29,7 @@ public class CompanyNameViewHolder extends RViewHolder<CompanyEntity> implements
     private ImageView ivLogo;
     @Bind(R.id.tv_name)
     private TextView tvName;
+
 
     public CompanyNameViewHolder(View itemView) {
         super(itemView);
@@ -54,5 +57,7 @@ public class CompanyNameViewHolder extends RViewHolder<CompanyEntity> implements
         intent.putExtra(Extras.SEARCH_INFO, searchInfo);
         activity.setResult(Activity.RESULT_OK, intent);
         activity.finish();
+
+
     }
 }

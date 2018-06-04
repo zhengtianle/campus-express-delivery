@@ -67,7 +67,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.github.Lauzy:LBehavior:1.0.2'
 
-    compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'com.mcxiaoke.volley:library:1.0.+@aar'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'

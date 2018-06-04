@@ -104,18 +104,27 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case menu_main_item_home:
-                /**
-                 * 浮动按钮和底部导航栏都可以滑动
-                 */
-                //mFloatingActionButton.setVisibility(View.VISIBLE);
-                mBottomBehavior.setCanScroll(true);
-                //mFloatButtonBehavior.setCanScroll(true);
-                menuMultipleActions.setVisibility(View.VISIBLE);
+                if(currentMainFragment == taskFragment){
+                    /**
+                     * 本来就在当前界面，又点击当前此item
+                     * 刷新任务
+                     */
 
-                transaction.show(taskFragment).hide(deliverFragment)
-                        .hide(mineFragment).hide(moreFragment);
+                }else{
+                    /**
+                     * 浮动按钮和底部导航栏都可以滑动
+                     */
+                    //mFloatingActionButton.setVisibility(View.VISIBLE);
+                    mBottomBehavior.setCanScroll(true);
+                    //mFloatButtonBehavior.setCanScroll(true);
+                    menuMultipleActions.setVisibility(View.VISIBLE);
 
-                currentMainFragment = taskFragment;
+                    transaction.show(taskFragment).hide(deliverFragment)
+                            .hide(mineFragment).hide(moreFragment);
+
+                    currentMainFragment = taskFragment;
+                }
+
                 break;
             case R.id.menu_main_item_deliver:
 

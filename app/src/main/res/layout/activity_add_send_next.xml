@@ -48,6 +48,7 @@
                     android:id="@+id/send_sender_tel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="寄件人手机号" />
 
             </android.support.design.widget.TextInputLayout>
@@ -59,7 +60,6 @@
                     android:id="@+id/send_sender_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:hint="寄件人地址"
                     android:text="山东省威海市环翠区文化西路180号"/>
 
@@ -83,6 +83,7 @@
                     android:id="@+id/send_receiver_tel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="收件人手机号" />
 
             </android.support.design.widget.TextInputLayout>

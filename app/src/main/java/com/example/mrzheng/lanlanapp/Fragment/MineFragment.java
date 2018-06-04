@@ -1,18 +1,17 @@
 package com.example.mrzheng.lanlanapp.Fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mrzheng.lanlanapp.Activity.AddSendDeliverNextActivity;
-import com.example.mrzheng.lanlanapp.Activity.ChangeUserInformationActivity;
 import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
+import com.example.mrzheng.lanlanapp.Activity.ModifyPersonalInfoActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyAcceptTaskActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyReleaseTaskActivity;
 import com.example.mrzheng.lanlanapp.R;
@@ -32,7 +31,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
     private TextView mReleaseTask;
     private TextView mAcceptTask;
     private RelativeLayout userFeedback;
-    private RelativeLayout logOff;
+    private Button logOff;
     private TextView changeUserInformation;
 
     public MineFragment() {
@@ -64,7 +63,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         mReleaseTask = (TextView)v.findViewById(R.id.tv_task_release);
         mAcceptTask = (TextView)v.findViewById(R.id.tv_task_accept);
         userFeedback = (RelativeLayout)v.findViewById(R.id.user_feedback);
-        logOff = (RelativeLayout)v.findViewById(R.id.log_off);
+        logOff = (Button) v.findViewById(R.id.log_off);
         changeUserInformation = (TextView)v.findViewById(R.id.change_user_information);
 
         setClickListener();
@@ -88,7 +87,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         switch (v.getId()){
 
             case R.id.change_user_information:
-                startActivity(new Intent(getContext(),ChangeUserInformationActivity.class));
+                startActivity(new Intent(getContext(),ModifyPersonalInfoActivity.class));
                 break;
             case R.id.tv_task_release:
                 Intent intent = new Intent(getContext(),MyReleaseTaskActivity.class);

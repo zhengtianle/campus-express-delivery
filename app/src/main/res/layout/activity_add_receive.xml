@@ -103,6 +103,7 @@
                             android:id="@+id/receive_express_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:hint="物件估值" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -127,6 +128,7 @@
                     android:id="@+id/receive_money"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="赏金" />
 
             </android.support.design.widget.TextInputLayout>

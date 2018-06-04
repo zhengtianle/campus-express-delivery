@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F3F5F4">
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="任务类型"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:text="代发快递"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="发布者昵称"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/release_user_nickname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="发布者电话"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/release_user_tel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:text="17863113969"
+                android:textColor="@color/color_222222"/>
+            <ImageView
+                android:id="@+id/release_user_phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/task_phone"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="发布者性别"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/release_user_sex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="发布者学校"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/release_user_school"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:text="山东大学威海校区"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="发布者评分"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/release_user_grade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:text="5.0"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#F3F5F4"
+            />
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="物件名称"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/express_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="物件类型"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/express_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="物件重量"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/express_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="物件估值"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/express_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="交易地点"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/meeting_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="交易时间"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/meeting_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="寄件人姓名"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/sender_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="寄件人电话"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/sender_tel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="寄件人地址"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/sender_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="收件人姓名"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/receiver_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="收件人电话"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/receiver_tel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="收件人地址"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/receiver_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="快递公司"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/express_company"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="赏金"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"
+                android:text="备注"
+                android:textColor="@color/color_222222" />
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="8"
+                android:background="@null"
+                android:focusable="false"
+                android:textSize="16sp"
+                android:textColor="@color/color_222222"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
+        <Button
+            android:id="@+id/receive_this_task"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_btn_login_selected"
+            android:text="接受任务"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F3F5F4">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avator"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/author"/>
+
+    <View style="@style/MineFunctionDivider" />
+    <RelativeLayout
+        style="@style/MineFunctionRl"
+        android:id="@+id/change_avator"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="修改头像"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/more" />
+
+    </RelativeLayout>
+
+    <View style="@style/MineFunctionDivider" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#F3F5F4"
+        />
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="昵称"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:text="懒懒用户"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="性别"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/sex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:text="男"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="姓名"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:text="郑浩"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="学校"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/school"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:text="山东大学威海校区"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#F3F5F4"
+        />
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="学号"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/stuid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:focusable="false"
+            android:text="201600800543"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+
+    <LinearLayout style="@style/MineFunctionRl">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:text="手机号"
+            android:textColor="@color/color_222222" />
+        <EditText
+            android:id="@+id/tel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="8"
+            android:background="@null"
+            android:focusable="false"
+            android:text="17863113969"
+            android:textSize="16sp"
+            android:textColor="@color/color_222222"/>
+
+    </LinearLayout>
+
+    <View style="@style/MineFunctionDivider" />
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/bg_btn_login_selected"
+        android:text="保存"
+        android:textColor="#ffffff"
+        android:textSize="18dp" />
+
+</LinearLayout>

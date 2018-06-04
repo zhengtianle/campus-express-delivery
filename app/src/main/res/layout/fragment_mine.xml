@@ -382,7 +382,7 @@
                     style="@style/MineFunctionDivider"
                     />
 
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:id="@+id/log_off"
                     style="@style/MineFunctionRl">
 
@@ -396,22 +396,17 @@
                         android:textColor="#cc0000"
                         android:paddingRight="10dp" />
 
-                </RelativeLayout>
-
-
-                <View
-                    style="@style/MineFunctionDivider"
-                    />
-
-                <View
+                </RelativeLayout>-->
+                <Button
+                    android:id="@+id/log_off"
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="#F3F5F4"
-                    />
+                    android:layout_height="45dp"
+                    android:layout_marginTop="21dp"
+                    android:background="@drawable/bg_btn_login_selected"
+                    android:text="退出登录"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp" />
 
-                <View
-                    style="@style/MineFunctionDivider"
-                    />
 
             </LinearLayout>
 

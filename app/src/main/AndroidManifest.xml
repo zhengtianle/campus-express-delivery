@@ -39,8 +39,6 @@
             android:launchMode="singleTask"/>
         <activity android:name=".Activity.RegisterActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".Activity.RegisterNextActivity"
-            android:launchMode="singleTask"/>
         <activity android:name=".Activity.HomeActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".Activity.DeliverSearchActivity"
@@ -65,7 +63,9 @@
             android:launchMode="singleTask"/>
         <activity android:name=".Activity.MyReleaseTaskActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".Activity.ChangeUserInformationActivity"
+        <activity android:name=".Activity.ModifyPersonalInfoActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activity.TaskInformationActivity"
             android:launchMode="singleTask"/>
     </application>
 
@@ -75,5 +75,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
 </manifest>
