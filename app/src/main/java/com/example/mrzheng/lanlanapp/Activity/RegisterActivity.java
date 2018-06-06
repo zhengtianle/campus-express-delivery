@@ -1,9 +1,14 @@
 package com.example.mrzheng.lanlanapp.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,21 +16,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mrzheng.lanlanapp.DataBaseService.HttpService;
 import com.example.mrzheng.lanlanapp.Extra.LimitInput;
 import com.example.mrzheng.lanlanapp.Extra.StatusBarUtils;
 import com.example.mrzheng.lanlanapp.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Map;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by mrzheng on 18-4-19.
  */
 
-public class RegisterActivity extends AppCompatActivity implements View.OnFocusChangeListener,View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity
+        implements View.OnFocusChangeListener,
+        View.OnClickListener, HttpService{
 
     private EditText textPhone;
     private EditText textPassword;
@@ -35,6 +57,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnFocusC
     private EditText textStuId;
     private EditText textSchool;
     private Button buttonOk;
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+
+                case 1:
+                    Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 2:
+                    Toast.makeText(RegisterActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT);
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,13 +178,86 @@ public class RegisterActivity extends AppCompatActivity implements View.OnFocusC
                     Toast.makeText(RegisterActivity.this,"性别一栏只能填写“男”或“女”",Toast.LENGTH_SHORT).show();
 
                 } else{
+                    //检测是否已经联网
+                    ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                    if(networkInfo == null || networkInfo.isAvailable()){
+                        //当前有可用网络
 
-                    Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                        httpPost(textPhone.getText().toString(),
+                                textPassword.getText().toString(),
+                                textName.getText().toString(),
+                                textSex.getText().toString(),
+                                textStuId.getText().toString(),
+                                textSchool.getText().toString());
+
+                    }else{
+                        //当前没有可用网络
+                        Toast toast = Toast.makeText(RegisterActivity.this,"网络未连接", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+
                 }
 
                 break;
         }
     }
+
+
+    public void httpPost(String tel,String passwords,
+                         String name,String sex,
+                         String stu_id,String school){
+
+        new Thread(()->{
+
+            try{
+
+                String url = IP+"/RegisterServlet";
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody body = new FormBody.Builder()
+                        .add("tel",tel)
+                        .add("passwords",passwords)
+                        .add("name",name)
+                        .add("sex",sex)
+                        .add("stu_id",stu_id)
+                        .add("school",school)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+
+                Response response = okHttpClient.newCall(request).execute();
+
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+
+                    if(map.get("tag").equals("success")){
+                        message.what = 1;
+                    }else{
+                        message.what = 2;
+                        message.obj = map.get("info");
+                    }
+
+                    handler.sendMessage(message);
+
+                }
+
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }).start();
+
+    }
+
+
+
 }

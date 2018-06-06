@@ -2,14 +2,14 @@ package com.example.mrzheng.lanlanapp.Activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.ProgressDialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,25 +23,36 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.mrzheng.lanlanapp.DataBaseService.LoginService;
+import com.example.mrzheng.lanlanapp.DataBaseService.HttpService;
 import com.example.mrzheng.lanlanapp.R;
 import com.example.mrzheng.lanlanapp.Widget.DrawableTextView;
 import com.example.mrzheng.lanlanapp.Widget.KeyboardWatcher;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.Text;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Map;
 
-import java.util.Timer;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by mrzheng on 18-4-12.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, KeyboardWatcher.SoftKeyboardStateListener{
+public class LoginActivity extends AppCompatActivity
+        implements View.OnClickListener,
+        KeyboardWatcher.SoftKeyboardStateListener,
+        HttpService{
 
     private int screenHeight = 0;//屏幕高度
     private float scale = 0.8f; //logo缩放比例
@@ -64,7 +75,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText tel;
     private EditText passwords;
     //返回主线程更新数据
-    /*private static Handler handler = new Handler();*/
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 2:
+                    Toast.makeText(LoginActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
+    };
 
 
     @Override
@@ -214,21 +241,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 if(networkInfo == null || networkInfo.isAvailable()){
                     //当前有可用网络
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    finish();
 
-                    //创建子线程，进行Post传输
-                    /*new Thread(new MyThread()).start();
-
-                    if(info == "Success"){
-                        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                        progressBar.setVisibility(View.GONE);
-                        startActivity(intent);
-                    }else{
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT).show();
-                    }*/
+                    httpPost(tel.getText().toString(),passwords.getText().toString());
 
                 }else{
                     //当前没有可用网络
@@ -302,19 +316,53 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         zoomOut(logo);
     }
 
-    /*//子线程接收数据，主线程修改数据
-    public class MyThread implements Runnable{
-        @Override
-        public void run() {
-            info = LoginService.executeHttpPost(tel.getText().toString(),passwords.getText().toString());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    //buttonLogin.setText(info);
+    public void httpPost(String tel,String password){
+
+        new Thread(()->{
+
+            try {
+
+                String url = IP+"/LoginServlet";
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody body = new FormBody.Builder()
+                        .add("tel",tel)
+                        .add("passwords",password)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+
+                Response response = okHttpClient.newCall(request).execute();
+
+
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+
+                    if(map.get("tag").equals("success")){
+                        message.what = 1;
+                    }else{
+                        message.what = 2;
+                        message.obj = map.get("info");
+                    }
+
+                    handler.sendMessage(message);
+
                 }
-            });
-        }
-    }*/
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
+
+    }
+
 
 
 }
