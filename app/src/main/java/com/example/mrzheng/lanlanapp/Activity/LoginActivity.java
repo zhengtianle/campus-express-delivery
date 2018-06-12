@@ -28,6 +28,9 @@ import android.widget.Toast;
 
 
 import com.example.mrzheng.lanlanapp.DataBaseService.HttpService;
+import com.example.mrzheng.lanlanapp.Model.CurrentUserInfo;
+import com.example.mrzheng.lanlanapp.Model.TaskInfo;
+import com.example.mrzheng.lanlanapp.Model.UserInfo;
 import com.example.mrzheng.lanlanapp.R;
 import com.example.mrzheng.lanlanapp.Widget.DrawableTextView;
 import com.example.mrzheng.lanlanapp.Widget.KeyboardWatcher;
@@ -37,7 +40,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -74,6 +79,7 @@ public class LoginActivity extends AppCompatActivity
     private String info;
     private EditText tel;
     private EditText passwords;
+
     //返回主线程更新数据
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
@@ -81,12 +87,38 @@ public class LoginActivity extends AppCompatActivity
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Gson gson = new Gson();
+                    CurrentUserInfo currentUserInfo = gson.fromJson(msg.obj.toString(),CurrentUserInfo.class);
+                    //将个人信息存储到全局变量中
+                    UserInfo.avatar = currentUserInfo.avatar;
+                    UserInfo.grade = currentUserInfo.grade;
+                    UserInfo.name = currentUserInfo.name;
+                    UserInfo.nickname = currentUserInfo.nickname;
+                    UserInfo.receive_tasks = currentUserInfo.receive_tasks;
+                    UserInfo.release_tasks = currentUserInfo.release_tasks;
+                    UserInfo.school = currentUserInfo.school;
+                    UserInfo.sex = currentUserInfo.sex;
+                    UserInfo.tel = currentUserInfo.tel;
+                    UserInfo.stu_id = currentUserInfo.stu_id;
+
+                    getTaskInformation();
+
                     break;
                 case 2:
                     Toast.makeText(LoginActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    /**
+                     * 查询到主页面的任务信息
+                     */
+
+                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                    intent.putExtra("taskInformation",msg.obj.toString());
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 4:
+                    Toast.makeText(LoginActivity.this,"任务查询失败",Toast.LENGTH_SHORT).show();
                     break;
             }
 
@@ -130,6 +162,8 @@ public class LoginActivity extends AppCompatActivity
         iv_show_pwd.setOnClickListener(this);
         textViewRegister.setOnClickListener(this);
         buttonLogin.setOnClickListener(this);
+        lianxi.setOnClickListener(this);
+        aboutUs.setOnClickListener(this);
         findViewById(R.id.close).setOnClickListener(this);
 
         tel.addTextChangedListener(new TextWatcher() {
@@ -282,6 +316,10 @@ public class LoginActivity extends AppCompatActivity
                 if (!TextUtils.isEmpty(pwd))
                     passwords.setSelection(pwd.length());
                 break;
+            case R.id.lianxi:
+            case R.id.about_us:
+                startActivity(new Intent(LoginActivity.this,AboutUsActivity.class));
+                break;
         }
     }
 
@@ -322,8 +360,12 @@ public class LoginActivity extends AppCompatActivity
 
             try {
 
+
+
                 String url = IP+"/LoginServlet";
-                OkHttpClient okHttpClient = new OkHttpClient();
+                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .build();
                 RequestBody body = new FormBody.Builder()
                         .add("tel",tel)
                         .add("passwords",password)
@@ -346,6 +388,7 @@ public class LoginActivity extends AppCompatActivity
 
                     if(map.get("tag").equals("success")){
                         message.what = 1;
+                        message.obj = map.get("currentUserInfo");
                     }else{
                         message.what = 2;
                         message.obj = map.get("info");
@@ -358,6 +401,45 @@ public class LoginActivity extends AppCompatActivity
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+        }).start();
+
+    }
+
+    public void getTaskInformation(){
+
+        new Thread(()->{
+            String url = IP+"/AllTaskInfoServlet";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody body = new FormBody.Builder()
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+                    if(map.get("tag").equals("success")){
+                        message.what = 3;
+                        message.obj = map.get("info");
+                    }else{
+                        message.what = 4;
+                    }
+                    handler.sendMessage(message);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }).start();
 

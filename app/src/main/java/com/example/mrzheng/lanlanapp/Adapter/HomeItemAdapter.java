@@ -1,6 +1,11 @@
 package com.example.mrzheng.lanlanapp.Adapter;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.mrzheng.lanlanapp.Model.DataModel;
 import com.example.mrzheng.lanlanapp.Model.TaskEntity;
+import com.example.mrzheng.lanlanapp.Model.TaskInfo;
 import com.example.mrzheng.lanlanapp.R;
 
 import org.w3c.dom.Text;
@@ -25,10 +31,15 @@ import java.util.List;
 
 public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.DemoViewHolder>{
 
-    private List<TaskEntity> mData;
+    /*private List<TaskEntity> mData;*/
+    private List<TaskInfo> mData;
     private Context mContext;
 
-    public HomeItemAdapter(Context context,List<TaskEntity> list) {
+    /*public HomeItemAdapter(Context context,List<TaskEntity> list) {
+        mContext = context;
+        mData = list;
+    }*/
+    public HomeItemAdapter(Context context,List<TaskInfo> list) {
         mContext = context;
         mData = list;
     }
@@ -37,7 +48,11 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.DemoVi
      * 刷新数据
      * @param list
      */
-    public void update(List<TaskEntity> list){
+    /*public void update(List<TaskEntity> list){
+        mData = list;
+        notifyDataSetChanged();
+    }*/
+    public void update(List<TaskInfo> list){
         mData = list;
         notifyDataSetChanged();
     }
@@ -71,7 +86,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.DemoVi
     @Override
     public void onBindViewHolder(DemoViewHolder holder, int position) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        TaskEntity s = mData.get(position);
+        /*TaskEntity s = mData.get(position);
         holder.company.setText(s.getCompany());
         holder.sex.setText(s.getReleaseUserSex());
         holder.deliver.setText(s.getDeliver());
@@ -79,9 +94,26 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.DemoVi
         holder.information.setText(Integer.valueOf(s.getWeight()).toString()+"  "+Integer.valueOf(s.getMoney()).toString());
         holder.money.setText(Integer.valueOf(s.getMoney()).toString());
         holder.meetingTime.setText(s.getMeetingTime());
-        holder.currentTime.setText(df.format(new Date()));
+        holder.currentTime.setText(df.format(new Date()));*/
 
-        holder.taskId = position+1;//唯一标识这个任务
+        TaskInfo s = mData.get(position);
+        holder.company.setText(s.express_company);
+        holder.sex.setText(s.sex);
+        holder.deliver.setText(s.express_name);
+        holder.local.setText(s.meeting_location);
+        holder.information.setText(s.express_weight+"   "+s.express_value);
+        holder.money.setText(s.money);
+        holder.meetingTime.setText(s.meeting_time);
+        holder.currentTime.setText(df.format(new Date()));
+        holder.sType = s.type;
+        if(s.type.equals("代收快递")){
+            holder.type.setBackgroundResource(R.drawable.add_receive_big);
+        }else{
+            holder.type.setBackgroundResource(R.drawable.add_send_big);
+
+        }
+
+        holder.taskId = Integer.parseInt(s.task_id);//唯一标识这个任务
         //对控件进行监听
         if(mOnItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +167,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.DemoVi
         TextView type;
 
         public int taskId;
+        public String sType;
 
 
         public DemoViewHolder(View itemView) {

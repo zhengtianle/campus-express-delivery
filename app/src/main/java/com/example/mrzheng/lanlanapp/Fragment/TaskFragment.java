@@ -1,5 +1,6 @@
 package com.example.mrzheng.lanlanapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -7,6 +8,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,31 +23,51 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrzheng.lanlanapp.Activity.HomeActivity;
+import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
 import com.example.mrzheng.lanlanapp.Activity.MainActivity;
 import com.example.mrzheng.lanlanapp.Activity.TaskInformationActivity;
 import com.example.mrzheng.lanlanapp.Adapter.HomeItemAdapter;
+import com.example.mrzheng.lanlanapp.DataBaseService.HttpService;
+import com.example.mrzheng.lanlanapp.Model.CurrentUserInfo;
 import com.example.mrzheng.lanlanapp.Model.DataModel;
 import com.example.mrzheng.lanlanapp.Model.TaskEntity;
+import com.example.mrzheng.lanlanapp.Model.TaskInfo;
+import com.example.mrzheng.lanlanapp.Model.UserInfo;
 import com.example.mrzheng.lanlanapp.R;
 import com.example.mrzheng.lanlanapp.Widget.HomeItemDecoration;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by mrzheng on 18-5-2.
  */
 
-public class TaskFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class TaskFragment extends android.support.v4.app.Fragment
+        implements View.OnClickListener,HttpService{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
-    private List<TaskEntity> list;
+    /*private List<TaskEntity> list;*/
+    private List<TaskInfo> mList;
     private RecyclerView mRecyclerView;
     HomeItemAdapter adapter;
 
@@ -58,6 +81,7 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
     private SendFragment sendFragment;
     private ReceiveFragment receiveFragment;
     private static Fragment currentTaskFragment;
+
 
     public TaskFragment() {
     }
@@ -119,8 +143,17 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
         textViewTwo.setOnClickListener(this);
 
         //list = DataModel.getDemoData();
-        initList();
-        adapter = new HomeItemAdapter(getContext(),list);
+        /*Intent intent = getActivity().getIntent();
+        String s = intent.getStringExtra("taskInformation");
+        Gson gson1 = new Gson();
+        //字符串转list
+        mList =gson1.fromJson(s, new TypeToken<List<TaskInfo>>() {}.getType());*/
+        /**
+         * //强转成宿主activity
+         */
+        mList = ((HomeActivity) mActivity).getTask();
+        /*adapter = new HomeItemAdapter(getContext(),list);*/
+        adapter = new HomeItemAdapter(getContext(),mList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);//设置方向
         mRecyclerView.addItemDecoration(new HomeItemDecoration(mActivity));
@@ -132,9 +165,10 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
             public void onItemClick(View view, int position) {
                 //Toast.makeText(getContext(),position+1+"click",Toast.LENGTH_SHORT).show();
                 if (null != mRecyclerView.getChildViewHolder(view)){
-                    HomeItemAdapter.DemoViewHolder viewHolder = (HomeItemAdapter.DemoViewHolder)mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(position));
+                    /*View v = mRecyclerView.getChildAt(position);
+                    HomeItemAdapter.DemoViewHolder viewHolder = (HomeItemAdapter.DemoViewHolder)mRecyclerView.getChildViewHolder(v);*/
                     Intent intent = new Intent(getContext(), TaskInformationActivity.class);
-                    TaskEntity currentTask = new TaskEntity();
+                    /*TaskEntity currentTask = new TaskEntity();
                     for(TaskEntity l : list){
                         if(viewHolder.taskId == l.getTaskId()){
                             currentTask = l;
@@ -142,6 +176,20 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
                         }
                     }
                     intent.putExtra("currentTask",currentTask);
+                    startActivity(intent);*/
+
+                    TaskInfo currentTask = new TaskInfo();
+                    /*for(TaskInfo l : mList){
+                        if(viewHolder.taskId == Integer.parseInt(l.task_id)&&
+                                viewHolder.sType.equals(l.type)){
+                            currentTask = l;
+                            break;
+                        }
+                    }*/
+                    currentTask = mList.get(position);
+                    Gson gson = new Gson();
+                    String s = gson.toJson(currentTask);
+                    intent.putExtra("currentTask",s);
                     startActivity(intent);
 
                     //do something
@@ -177,7 +225,18 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
     }*/
 
     /**
-     * 切换代收任务和代发任务(不细分了)
+     * 刷新当前fragment界面任务数据
+     */
+    public void refresh(){
+        /**
+         * //强转成宿主activity
+         */
+        mList = ((HomeActivity) mActivity).getTask();
+        adapter.update(mList);
+    }
+
+    /**
+     * 切换代收任务和代发任务(暂时不细分了)
      */
     @Override
     public void onClick(View v) {
@@ -200,7 +259,7 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
     }
 
 
-    public void initList() {
+    /*public void initList() {
         list = new ArrayList<TaskEntity>();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
 
@@ -209,7 +268,7 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
             TaskEntity demoTask =new TaskEntity();
 
             demoTask.setCompany("顺丰快递");
-            /*demoTask.setSex("女");*/
+            *//*demoTask.setSex("女");*//*
             demoTask.setDeliver("MacBook Pro 2017款");
             demoTask.setLocal("六号楼三区0604");
             demoTask.setWeight(2);
@@ -240,7 +299,7 @@ public class TaskFragment extends android.support.v4.app.Fragment implements Vie
             list.add(demoTask);
         }
 
-    }
+    }*/
 
 
 

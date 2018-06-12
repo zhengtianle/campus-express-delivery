@@ -1,9 +1,12 @@
 package com.example.mrzheng.lanlanapp.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,18 +23,36 @@ import com.example.mrzheng.lanlanapp.Fragment.DeliverFragment;
 import com.example.mrzheng.lanlanapp.Fragment.MineFragment;
 import com.example.mrzheng.lanlanapp.Fragment.MoreFragment;
 import com.example.mrzheng.lanlanapp.Fragment.TaskFragment;
+import com.example.mrzheng.lanlanapp.Model.TaskInfo;
 import com.example.mrzheng.lanlanapp.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lauzy.freedom.lbehaviorlib.behavior.CommonBehavior;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static com.example.mrzheng.lanlanapp.DataBaseService.HttpService.IP;
 import static com.example.mrzheng.lanlanapp.R.id.menu_main_item_home;
 
 /**
  * Created by mrzheng on 18-5-2.
  */
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
+public class HomeActivity extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener{
     private FrameLayout mFrameLayout;
     private TaskFragment taskFragment;
     private DeliverFragment deliverFragment;
@@ -59,6 +80,23 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     private long firstPressedTime;
 
+    private List<TaskInfo> list;
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    taskFragment.refresh();
+                    Toast.makeText(HomeActivity.this,"刷新成功",Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(HomeActivity.this,"刷新失败",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
 
     @Override
@@ -94,6 +132,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         addSendDeliver.setOnClickListener(this);
         addReceiveDeliver.setOnClickListener(this);
 
+        //从登录界面获取初始任务数据
+        Intent intent = this.getIntent();
+        String s = intent.getStringExtra("taskInformation");
+        Gson gson1 = new Gson();
+        //字符串转list
+        list =gson1.fromJson(s, new TypeToken<List<TaskInfo>>() {}.getType());
+
+    }
+
+    public List<TaskInfo> getTask(){
+        return list;
     }
 
 
@@ -104,26 +153,64 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case menu_main_item_home:
+
                 if(currentMainFragment == taskFragment){
                     /**
                      * 本来就在当前界面，又点击当前此item
                      * 刷新任务
                      */
+                    //开启子线程获取最新任务信息
+                    new Thread(()->{
+                        String url = IP+"/AllTaskInfoServlet";
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        RequestBody body = new FormBody.Builder()
+                                .build();
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .post(body)
+                                .build();
 
-                }else{
-                    /**
-                     * 浮动按钮和底部导航栏都可以滑动
-                     */
-                    //mFloatingActionButton.setVisibility(View.VISIBLE);
-                    mBottomBehavior.setCanScroll(true);
-                    //mFloatButtonBehavior.setCanScroll(true);
-                    menuMultipleActions.setVisibility(View.VISIBLE);
+                        try {
+                            Response response = okHttpClient.newCall(request).execute();
+                            if(response.isSuccessful()){
+                                String str = response.body().string();
+                                Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                                Type type = new TypeToken<Map<String,String>>(){}.getType();
 
-                    transaction.show(taskFragment).hide(deliverFragment)
-                            .hide(mineFragment).hide(moreFragment);
+                                Map<String,String> map = gson.fromJson(str,type);
+                                Message message = new Message();
+                                if(map.get("tag").equals("success")){
+                                    message.what = 1;
+                                    list =gson.fromJson(map.get("info"), new TypeToken<List<TaskInfo>>() {}.getType());
+                                }else{
+                                    message.what = 2;
+                                }
+                                handler.sendMessage(message);
 
-                    currentMainFragment = taskFragment;
+
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }).start();
+
                 }
+
+                /**
+                 * 浮动按钮和底部导航栏都可以滑动
+                 */
+                //mFloatingActionButton.setVisibility(View.VISIBLE);
+                mBottomBehavior.setCanScroll(true);
+                //mFloatButtonBehavior.setCanScroll(true);
+                menuMultipleActions.setVisibility(View.VISIBLE);
+
+                transaction.show(taskFragment).hide(deliverFragment)
+                        .hide(mineFragment).hide(moreFragment);
+
+                currentMainFragment = taskFragment;
+
 
                 break;
             case R.id.menu_main_item_deliver:

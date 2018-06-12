@@ -14,7 +14,10 @@ import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
 import com.example.mrzheng.lanlanapp.Activity.ModifyPersonalInfoActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyAcceptTaskActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyReleaseTaskActivity;
+import com.example.mrzheng.lanlanapp.Model.UserInfo;
 import com.example.mrzheng.lanlanapp.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by mrzheng on 18-5-2.
@@ -33,6 +36,13 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
     private RelativeLayout userFeedback;
     private Button logOff;
     private TextView changeUserInformation;
+
+    //上半部分的个人信息
+    private TextView nickname;
+    private CircleImageView avatar;
+    private TextView releaseTaskNumber;
+    private TextView receiveTaskNumber;
+    private TextView grade;
 
     public MineFragment() {
     }
@@ -66,9 +76,32 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         logOff = (Button) v.findViewById(R.id.log_off);
         changeUserInformation = (TextView)v.findViewById(R.id.change_user_information);
 
+        //部分个人信息
+        avatar = (CircleImageView)v.findViewById(R.id.mine_avatar);
+        nickname = (TextView)v.findViewById(R.id.mine_nickname);
+        releaseTaskNumber = (TextView)v.findViewById(R.id.mine_release);
+        receiveTaskNumber = (TextView)v.findViewById(R.id.mine_receive);
+        grade = (TextView)v.findViewById(R.id.mine_grade);
+
+        setInformation();
+
         setClickListener();
 
         return v;
+    }
+
+    /**
+     * 初始化界面中的信息
+     */
+    public void setInformation(){
+
+        nickname.setText(UserInfo.nickname);
+        releaseTaskNumber.setText(UserInfo.release_tasks);
+        receiveTaskNumber.setText(UserInfo.receive_tasks);
+        grade.setText(UserInfo.grade);
+
+        //avatar头像的设置
+
     }
 
     public void setClickListener(){
@@ -105,6 +138,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
             case R.id.log_off:
                 //由于全部的activity都是singleTask模式，只要到登录界面，就会把在其上的所有活动都出栈(销毁)
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
                 break;
 
         }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.example.mrzheng.lanlanapp.R;
 import com.example.mrzheng.lanlanapp.Widget.DatePicker;
+import com.j256.ormlite.stmt.query.In;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -114,7 +115,7 @@ public class AddReceiveDeliverActivity extends AppCompatActivity implements View
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddReceiveDeliverActivity.this);
-                    String[] weight = {"1","2","3","4","5-8","8-10","10+"};
+                    String[] weight = {"1","2","3","4","5","5+"};
                     builder.setItems(weight, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -124,9 +125,8 @@ public class AddReceiveDeliverActivity extends AppCompatActivity implements View
                                 case 1:thisSex = "2";break;
                                 case 2:thisSex = "3";break;
                                 case 3:thisSex = "4";break;
-                                case 4:thisSex = "5-8";break;
-                                case 5:thisSex = "8-10";break;
-                                case 6:thisSex = "10+";break;
+                                case 4:thisSex = "5";break;
+                                case 5:thisSex = "";break;
                             }
 
                             expressWeight.setText(thisSex);
@@ -163,8 +163,18 @@ public class AddReceiveDeliverActivity extends AppCompatActivity implements View
                 meetingLocation.requestFocus();
                 break;
             case R.id.button_receive_next:
-
-                startActivity(new Intent(AddReceiveDeliverActivity.this,AddReceiveDeliverNextActivity.class));
+                Intent intent =new Intent(AddReceiveDeliverActivity.this,AddReceiveDeliverNextActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("expressName",expressName.getText().toString());
+                bundle.putString("expressType",expressType.getText().toString());
+                bundle.putString("expressWeight",expressWeight.getText().toString());
+                bundle.putString("expressValue",expressValue.getText().toString());
+                bundle.putString("money",money.getText().toString());
+                bundle.putString("note",note.getText().toString());
+                bundle.putString("meetingLocation",meetingLocation.getText().toString());
+                bundle.putString("meetingTime",meetingTime.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
 
         }

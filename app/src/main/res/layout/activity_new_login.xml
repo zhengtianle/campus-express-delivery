@@ -159,7 +159,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:layout_weight="1"
                 android:text="注册新用户"
-                android:textColor="#b0b8b2"
+                android:textColor="#4d94ff"
                 android:textSize="14dp" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginLeft="21dp"
                 android:text="忘记密码"
-                android:textColor="#b0b8b2"
+                android:textColor="#4d94ff"
                 android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>

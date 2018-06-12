@@ -117,7 +117,7 @@ public class AddSendDeliverActivity extends AppCompatActivity implements View.On
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddSendDeliverActivity.this);
-                    String[] weight = {"1","2","3","4","5-8","8-10","10+"};
+                    String[] weight = {"1","2","3","4","5","5+"};
                     builder.setItems(weight, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -127,12 +127,12 @@ public class AddSendDeliverActivity extends AppCompatActivity implements View.On
                                 case 1:thisSex = "2";break;
                                 case 2:thisSex = "3";break;
                                 case 3:thisSex = "4";break;
-                                case 4:thisSex = "5-8";break;
-                                case 5:thisSex = "8-10";break;
-                                case 6:thisSex = "10+";break;
+                                case 4:thisSex = "5";break;
+                                case 5:thisSex = "";break;
                             }
 
-                            expressWeight.setText(thisSex);
+                            if(!"5+".equals(thisSex))
+                                expressWeight.setText(thisSex);
 
                         }//onClick
                     });
@@ -169,7 +169,18 @@ public class AddSendDeliverActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.button_send_next:
 
-                startActivity(new Intent(AddSendDeliverActivity.this,AddSendDeliverNextActivity.class));
+                Intent intent = new Intent(AddSendDeliverActivity.this,AddSendDeliverNextActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("expressName",expressName.getText().toString());
+                bundle.putString("expressType",expressType.getText().toString());
+                bundle.putString("expressWeight",expressWeight.getText().toString());
+                bundle.putString("expressValue",expressValue.getText().toString());
+                bundle.putString("money",money.getText().toString());
+                bundle.putString("note",note.getText().toString());
+                bundle.putString("meetingLocation",meetingLocation.getText().toString());
+                bundle.putString("meetingTime",meetingTime.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
 
         }

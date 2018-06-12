@@ -133,11 +133,14 @@ public class DatePicker {
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
         startHour = startCalendar.get(Calendar.HOUR_OF_DAY);
         startMinute = startCalendar.get(Calendar.MINUTE);
-        endYear = endCalendar.get(Calendar.YEAR);
-        endMonth = endCalendar.get(Calendar.MONTH) + 1;
-        endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
-        endHour = endCalendar.get(Calendar.HOUR_OF_DAY);
-        endMinute = endCalendar.get(Calendar.MINUTE);
+        endYear = endCalendar.get(Calendar.YEAR) + 1;
+        endMonth = endCalendar.get(Calendar.MONTH) + 1 + 1;//一个月内
+        /*endDay = endCalendar.get(Calendar.DAY_OF_MONTH);*/
+        endDay = endCalendar.getActualMaximum(Calendar.DATE);
+        /*endHour = endCalendar.get(Calendar.HOUR_OF_DAY);*/
+        endHour = 24;
+        /*endMinute = endCalendar.get(Calendar.MINUTE);*/
+        endMinute = 60;
         spanYear = startYear != endYear;
         spanMon = (!spanYear) && (startMonth != endMonth);
         spanDay = (!spanMon) && (startDay != endDay);

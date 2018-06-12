@@ -67,6 +67,8 @@
             android:launchMode="singleTask"/>
         <activity android:name=".Activity.TaskInformationActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".Activity.AboutUsActivity"
+            android:launchMode="singleTask"/>
     </application>
 
     <!--网络通信权限-->

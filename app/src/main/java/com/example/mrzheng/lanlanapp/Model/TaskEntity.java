@@ -9,6 +9,10 @@ import android.os.Parcelable;
  */
 
 public class TaskEntity implements Parcelable{
+
+    private String type;
+
+    private int taskId;
     private String company;
     //private String sex;
     private String deliver;
@@ -18,7 +22,6 @@ public class TaskEntity implements Parcelable{
     private int money;
     private String meetingTime;
 
-    private String type;
     private String releaseUserNickname;
     private String releaseUserTel;
     private String releaseUserSex;
@@ -33,8 +36,6 @@ public class TaskEntity implements Parcelable{
     private String receiverTel;
     private String receiverLocation;
     private String note;
-
-    private int taskId;
 
 
 

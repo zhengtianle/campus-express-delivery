@@ -65,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity
             switch (msg.what){
 
                 case 1:
-                    Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
+                    //注册完之后还是要登录的！！！
+                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(intent);
                     finish();
                     break;
@@ -118,13 +119,13 @@ public class RegisterActivity extends AppCompatActivity
         switch (v.getId()){
             case R.id.input_userpassword:
                 if(hasFocus){
+                    LimitInput.noSpecialCharacter(textPassword);
                     Toast.makeText(RegisterActivity.this,"支持“_”、“-”、数字、字母",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.confirm_password:
                 if(hasFocus){
-                    LimitInput.noSpace(textPassword);
-                    LimitInput.noSpecialCharacter(textPassword);
+
                 }
                 break;
             case R.id.input_sex:

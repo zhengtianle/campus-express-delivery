@@ -40,11 +40,13 @@
                 >
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/mine_avatar"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/author"/>
 
                 <TextView
+                    android:id="@+id/mine_nickname"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -87,6 +89,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mine_release"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
@@ -118,6 +121,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mine_receive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
@@ -148,6 +152,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mine_grade"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
