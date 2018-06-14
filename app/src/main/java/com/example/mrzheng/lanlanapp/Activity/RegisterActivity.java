@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity
                     finish();
                     break;
                 case 2:
-                    Toast.makeText(RegisterActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT);
+                    Toast.makeText(RegisterActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
                     break;
             }
         }

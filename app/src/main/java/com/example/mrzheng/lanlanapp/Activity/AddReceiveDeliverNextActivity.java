@@ -94,6 +94,9 @@ public class AddReceiveDeliverNextActivity extends AppCompatActivity
                     startActivity(intent);
                     finish();
                     break;
+                case 4:
+                    Toast.makeText(AddReceiveDeliverNextActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
+                    break;
 
             }
         }

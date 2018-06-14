@@ -1,19 +1,19 @@
 <resources>
-    <string name="app_name">LanLanApp</string>
+    <string name="app_name">懒懒快递</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string name="email">EMAIL</string>
     <string name="calender">CALENDAR</string>
-    <string name="shopping">SHOPPING</string>
+    <string name="shopping">BENEFIT</string>
     <string name="social_network">SOCIAL NETWORK</string>
 
 
-    <string name="email_hint">A system for sending and receiving messages electronically over a computer network.</string>
-    <string name="calender_hint">Note all your special occasions in calendar and keep them in your finger tips</string>
-    <string name="shopping_hint">Shop and get offers, promo codes and discounts on your future purchase.</string>
-    <string name="social_network_hint">Stay connected with your friends, colleagues and family globally</string>
+    <string name="email_hint">A system that has real-time interaction with database</string>
+    <string name="calender_hint">Note the time that you do with task or your historical records</string>
+    <string name="shopping_hint">Release and receive tasks to get the time and money</string>
+    <string name="social_network_hint">Stay connected with the task\'s releaser or receiver</string>
     <string name="skip">SKIP</string>
 
     <array name="no_expand_titles">

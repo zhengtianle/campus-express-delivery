@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrzheng.lanlanapp.Activity.AddSendDeliverNextActivity;
 import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
 import com.example.mrzheng.lanlanapp.Activity.ModifyPersonalInfoActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyAcceptTaskActivity;
@@ -78,6 +79,7 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
                     startActivity(intent);
                     break;
                 case 2:
+                    Toast.makeText(getContext(),"操作失败",Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
                     Intent intent1 = new Intent(getContext(), MyAcceptTaskActivity.class);
