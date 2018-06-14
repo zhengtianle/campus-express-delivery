@@ -69,9 +69,14 @@ public class TaskInformationActivity extends AppCompatActivity
     private EditText note;
     private Button receiveThisTask;
     private EditText type;
+    private TextView successful;
+
+    private Button deleteThisTask;
 
     /*private TaskEntity currentTask;*/
     private TaskInfo currentTask;
+    private String visiable;
+    private String position;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
@@ -81,8 +86,8 @@ public class TaskInformationActivity extends AppCompatActivity
 
                 case 1:
                     UserInfo.receive_tasks = (Integer.parseInt(UserInfo.receive_tasks)+1)+"";
-                    TextView receiveTaskNumber = (TextView)findViewById(R.id.mine_receive);
-                    receiveTaskNumber.setText(UserInfo.receive_tasks);
+                    /*TextView receiveTaskNumber = (TextView)findViewById(R.id.mine_receive);
+                    receiveTaskNumber.setText(UserInfo.receive_tasks);*/
                     Toast.makeText(TaskInformationActivity.this,"接受任务成功",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(TaskInformationActivity.this,HomeActivity.class));
                     finish();
@@ -90,6 +95,20 @@ public class TaskInformationActivity extends AppCompatActivity
                 case 2:
                     Toast.makeText(TaskInformationActivity.this,"该任务已被接受",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(TaskInformationActivity.this,HomeActivity.class));
+                    finish();
+                    break;
+                case 3:
+                    Toast.makeText(TaskInformationActivity.this,"取消任务成功",Toast.LENGTH_SHORT).show();
+                    releaseHttpPost();
+                    break;
+                case 4:
+                    Toast.makeText(TaskInformationActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
+
+                    break;
+                case 5:
+                    Intent intent = new Intent(TaskInformationActivity.this,MyReleaseTaskActivity.class);
+                    intent.putExtra("info",msg.obj.toString());
+                    startActivity(intent);
                     finish();
                     break;
             }
@@ -106,6 +125,8 @@ public class TaskInformationActivity extends AppCompatActivity
 
         currentTask = new TaskInfo();
         String s = intent.getStringExtra("currentTask");
+        visiable = intent.getStringExtra("visiable");
+        position = intent.getStringExtra("position");
         Gson gson = new Gson();
         currentTask = gson.fromJson(s,TaskInfo.class);
 
@@ -138,6 +159,10 @@ public class TaskInformationActivity extends AppCompatActivity
         note = (EditText)findViewById(R.id.note);
         receiveThisTask = (Button)findViewById(R.id.receive_this_task);
         type = (EditText)findViewById(R.id.type);
+        successful = (TextView)findViewById(R.id.tv_successful);
+
+        deleteThisTask = (Button)findViewById(R.id.delete_this_task);
+
 
         /*type.setText(currentTask.getType());
         releaseUserNickname.setText(currentTask.getReleaseUserNickname());
@@ -184,11 +209,33 @@ public class TaskInformationActivity extends AppCompatActivity
         expressCompany.setText(currentTask.express_company);
         money.setText(currentTask.money);
         note.setText(currentTask.note);
+        if(currentTask.successful.equals("1")){
+            successful.setText("任务已被接受");
+        }else{
+            successful.setText("任务未被接受");
+        }
 
 
+        if(visiable.equals("false")){
+            /**
+             * 个人发布记录里面不能显示接受按钮
+             * 显示是否被接受
+             */
+            receiveThisTask.setVisibility(View.GONE);
+            successful.setVisibility(View.VISIBLE);
+            if(currentTask.successful.equals("0")){
+                deleteThisTask.setVisibility(View.VISIBLE);
+            }
+
+        }else{
+            receiveThisTask.setVisibility(View.VISIBLE);
+            successful.setVisibility(View.GONE);
+            deleteThisTask.setVisibility(View.GONE);
+        }
 
         phone.setOnClickListener(this);
         receiveThisTask.setOnClickListener(this);
+        deleteThisTask.setOnClickListener(this);
     }
 
     @Override
@@ -204,6 +251,11 @@ public class TaskInformationActivity extends AppCompatActivity
             case R.id.receive_this_task:
 
                 httpPost();
+
+                break;
+
+            case R.id.delete_this_task:
+                deleteHttpPost();
 
                 break;
         }
@@ -263,6 +315,93 @@ public class TaskInformationActivity extends AppCompatActivity
             }
 
         }).start();
+    }
+
+    public void deleteHttpPost(){
+
+        new Thread(()->{
+
+            try{
+
+                String url = IP+"/DeleteThisTask";
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody body = new FormBody.Builder()
+                        .add("task_id",currentTask.task_id)
+                        .add("type",currentTask.type)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+
+                Response response = okHttpClient.newCall(request).execute();
+
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+
+                    if(map.get("tag").equals("success")){
+                        message.what = 3;
+                    }else{
+                        message.what = 4;
+                        message.obj = map.get("info");
+                    }
+
+                    handler.sendMessage(message);
+
+                }
+
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }).start();
+    }
+
+    public void releaseHttpPost(){
+
+        new Thread(()->{
+            String url = IP+"/MyReleaseTaskServlet";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody body = new FormBody.Builder()
+                    .add("stu_id", UserInfo.stu_id)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+                    if(map.get("tag").equals("success")){
+                        message.what = 5;
+                        message.obj = map.get("info");
+                    }else{
+                        message.what = 6;
+                    }
+                    handler.sendMessage(message);
+
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }).start();
+
     }
 
 

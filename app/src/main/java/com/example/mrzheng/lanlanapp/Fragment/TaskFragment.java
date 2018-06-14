@@ -190,6 +190,7 @@ public class TaskFragment extends android.support.v4.app.Fragment
                     Gson gson = new Gson();
                     String s = gson.toJson(currentTask);
                     intent.putExtra("currentTask",s);
+                    intent.putExtra("visiable","true");
                     startActivity(intent);
 
                     //do something

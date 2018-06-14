@@ -41,4 +41,11 @@
     <color name="text1">#59B29C</color>
     <color name="text2">#333333</color>
 
+
+    <!--dialog-->
+    <color name="color_press">#D8D8D8</color>
+    <color name="color_content">#5c5c5c</color>
+    <color name="deep_line">#DDDDDD</color>
+    <color name="color_bg">#EBEBEB</color>
+
 </resources>

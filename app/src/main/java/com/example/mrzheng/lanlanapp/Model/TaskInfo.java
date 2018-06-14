@@ -32,6 +32,8 @@ public class TaskInfo {
     public String money;
     public String access_code;
 
+    public String successful;
+
 
     //发布者信息
     public String tel;

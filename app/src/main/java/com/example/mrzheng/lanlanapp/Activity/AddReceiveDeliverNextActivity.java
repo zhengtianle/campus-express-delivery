@@ -77,15 +77,24 @@ public class AddReceiveDeliverNextActivity extends AppCompatActivity
             switch (msg.what){
                 case 1:
                     UserInfo.release_tasks = (Integer.parseInt(UserInfo.release_tasks)+1)+"";
-                    TextView releaseTaskNumber = (TextView)findViewById(R.id.mine_release);
-                    releaseTaskNumber.setText(UserInfo.release_tasks);
-                    Intent intent = new Intent(AddReceiveDeliverNextActivity.this,MyReleaseTaskActivity.class);
-                    startActivity(intent);
-                    finish();
+                    /*TextView releaseTaskNumber = (TextView)findViewById(R.id.mine_release);
+                    releaseTaskNumber.setText(UserInfo.release_tasks);*/
+                    /**
+                     * 当前用户已发布的数据
+                     */
+                    releaseHttpPost();
+
                     break;
                 case 2:
                     Toast.makeText(AddReceiveDeliverNextActivity.this,msg.obj.toString(),Toast.LENGTH_SHORT);
                     break;
+                case 3:
+                    Intent intent = new Intent(AddReceiveDeliverNextActivity.this,MyReleaseTaskActivity.class);
+                    intent.putExtra("info",msg.obj.toString());
+                    startActivity(intent);
+                    finish();
+                    break;
+
             }
         }
     };
@@ -256,6 +265,50 @@ public class AddReceiveDeliverNextActivity extends AppCompatActivity
             }catch (IOException e){
                 e.printStackTrace();
             }
+
+        }).start();
+
+    }
+
+    /**
+     * 查询当前用户发布的任务信息
+     */
+    public void releaseHttpPost(){
+
+        new Thread(()->{
+            String url = IP+"/MyReleaseTaskServlet";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody body = new FormBody.Builder()
+                    .add("stu_id", UserInfo.stu_id)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+                    if(map.get("tag").equals("success")){
+                        message.what = 3;
+                        message.obj = map.get("info");
+                    }else{
+                        message.what = 4;
+                    }
+                    handler.sendMessage(message);
+
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }).start();
 

@@ -553,6 +553,23 @@
 
         <View style="@style/MineFunctionDivider" />
 
+        <LinearLayout style="@style/MineFunctionRl">
+
+            <TextView
+                android:id="@+id/tv_successful"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="任务已被接受"
+                android:textColor="@color/darkRed"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <View style="@style/MineFunctionDivider" />
+
         <Button
             android:id="@+id/receive_this_task"
             android:layout_width="match_parent"
@@ -563,6 +580,19 @@
             android:text="接受任务"
             android:textColor="#ffffff"
             android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/delete_this_task"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_btn_login_selected"
+            android:text="取消任务"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:visibility="gone"/>
+
 
     </LinearLayout>
 

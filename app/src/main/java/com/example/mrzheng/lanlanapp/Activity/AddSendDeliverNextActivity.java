@@ -69,8 +69,8 @@ public class AddSendDeliverNextActivity extends AppCompatActivity
             switch (msg.what){
                 case 1:
                     UserInfo.release_tasks = (Integer.parseInt(UserInfo.release_tasks)+1)+"";
-                    TextView releaseTaskNumber = (TextView)findViewById(R.id.mine_release);
-                    releaseTaskNumber.setText(UserInfo.release_tasks);
+                    /*TextView releaseTaskNumber = (TextView)findViewById(R.id.mine_release);
+                    releaseTaskNumber.setText(UserInfo.release_tasks);*/
                     Intent intent = new Intent(AddSendDeliverNextActivity.this,MyReleaseTaskActivity.class);
                     startActivity(intent);
                     finish();

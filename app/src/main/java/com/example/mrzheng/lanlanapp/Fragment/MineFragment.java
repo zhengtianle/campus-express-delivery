@@ -1,7 +1,10 @@
 package com.example.mrzheng.lanlanapp.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +17,27 @@ import com.example.mrzheng.lanlanapp.Activity.LoginActivity;
 import com.example.mrzheng.lanlanapp.Activity.ModifyPersonalInfoActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyAcceptTaskActivity;
 import com.example.mrzheng.lanlanapp.Activity.MyReleaseTaskActivity;
+import com.example.mrzheng.lanlanapp.Extra.Base64AndBitmap;
+import com.example.mrzheng.lanlanapp.Model.TaskInfo;
 import com.example.mrzheng.lanlanapp.Model.UserInfo;
 import com.example.mrzheng.lanlanapp.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static com.example.mrzheng.lanlanapp.DataBaseService.HttpService.IP;
 
 /**
  * Created by mrzheng on 18-5-2.
@@ -43,6 +63,31 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
     private TextView releaseTaskNumber;
     private TextView receiveTaskNumber;
     private TextView grade;
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    //Gson gson = new Gson();
+                    //List<TaskInfo> list =gson.fromJson(msg.obj.toString(), new TypeToken<List<TaskInfo>>() {}.getType());
+                    Intent intent = new Intent(getContext(),MyReleaseTaskActivity.class);
+                    intent.putExtra("info",msg.obj.toString());
+                    startActivity(intent);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    Intent intent1 = new Intent(getContext(), MyAcceptTaskActivity.class);
+                    intent1.putExtra("info",msg.obj.toString());
+                    startActivity(intent1);
+                    break;
+            }
+
+        }
+    };
 
     public MineFragment() {
     }
@@ -101,6 +146,8 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         grade.setText(UserInfo.grade);
 
         //avatar头像的设置
+        avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+
 
     }
 
@@ -123,14 +170,12 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
                 startActivity(new Intent(getContext(),ModifyPersonalInfoActivity.class));
                 break;
             case R.id.tv_task_release:
-                Intent intent = new Intent(getContext(),MyReleaseTaskActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("return","HomeActivity.class");
-                intent.putExtras(bundle);
-                startActivity(intent);
+                httpPost();
+
                 break;
             case R.id.tv_task_accept:
-                startActivity(new Intent(getContext(), MyAcceptTaskActivity.class));
+                acceptHttpPost();
+
                 break;
             case R.id.user_feedback:
                 Toast.makeText(getContext(),"请联系本APP作者",Toast.LENGTH_SHORT).show();
@@ -144,5 +189,99 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         }
     }
 
+    public void httpPost(){
 
+        new Thread(()->{
+            String url = IP+"/MyReleaseTaskServlet";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody body = new FormBody.Builder()
+                    .add("stu_id", UserInfo.stu_id)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+                    if(map.get("tag").equals("success")){
+                        message.what = 1;
+                        message.obj = map.get("info");
+                    }else{
+                        message.what = 2;
+                    }
+                    handler.sendMessage(message);
+
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }).start();
+
+    }
+
+    public void acceptHttpPost(){
+
+        new Thread(()->{
+            String url = IP+"/MyAcceptTaskServlet";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody body = new FormBody.Builder()
+                    .add("stu_id", UserInfo.stu_id)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String str = response.body().string();
+                    Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
+                    Type type = new TypeToken<Map<String,String>>(){}.getType();
+
+                    Map<String,String> map = gson.fromJson(str,type);
+                    Message message = new Message();
+                    if(map.get("tag").equals("success")){
+                        message.what = 3;
+                        message.obj = map.get("info");
+                    }else{
+                        message.what = 4;
+                    }
+                    handler.sendMessage(message);
+
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }).start();
+
+    }
+
+    /**
+     * 切换fragment则重新加载用户数据
+     * @param hidden
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        nickname.setText(UserInfo.nickname);
+        releaseTaskNumber.setText(UserInfo.release_tasks);
+        receiveTaskNumber.setText(UserInfo.receive_tasks);
+        grade.setText(UserInfo.grade);
+        avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+    }
 }
