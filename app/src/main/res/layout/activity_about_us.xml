@@ -14,6 +14,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="作者：郑浩\n学号：201600800543\nQQ：982978764"/>
+        android:text="作者：作者\n学号：xxxxxxxxxxxx\nQQ：xxxxxxxxx"/>
 
 </LinearLayout>

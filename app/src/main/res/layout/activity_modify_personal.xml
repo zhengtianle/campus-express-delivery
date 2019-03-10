@@ -111,7 +111,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="8"
             android:background="@null"
-            android:text="郑浩"
+            android:text="作者"
             android:textSize="16sp"
             android:textColor="@color/color_222222"/>
 
@@ -136,7 +136,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="8"
             android:background="@null"
-            android:text="山东大学威海校区"
+            android:text="中国某学校"
             android:textSize="16sp"
             android:textColor="@color/color_222222"/>
 
@@ -168,7 +168,7 @@
             android:layout_weight="8"
             android:background="@null"
             android:focusable="false"
-            android:text="201600800543"
+            android:text="xxxxxxxxxxxx"
             android:textSize="16sp"
             android:textColor="@color/color_222222"/>
 

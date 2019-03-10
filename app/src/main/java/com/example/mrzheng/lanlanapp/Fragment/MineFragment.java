@@ -148,7 +148,9 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         grade.setText(UserInfo.grade);
 
         //avatar头像的设置
-        avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        if(UserInfo.avatar != null && UserInfo.avatar != "") {
+            avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        }
 
 
     }
@@ -284,6 +286,8 @@ public class MineFragment extends android.support.v4.app.Fragment implements Vie
         releaseTaskNumber.setText(UserInfo.release_tasks);
         receiveTaskNumber.setText(UserInfo.receive_tasks);
         grade.setText(UserInfo.grade);
-        avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        if(UserInfo.avatar != null && UserInfo.avatar != "") {
+            avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        }
     }
 }

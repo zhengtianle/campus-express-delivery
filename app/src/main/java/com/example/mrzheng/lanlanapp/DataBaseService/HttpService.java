@@ -7,5 +7,5 @@ package com.example.mrzheng.lanlanapp.DataBaseService;
  */
 
 public interface HttpService {
-    public String IP = "http://192.168.43.28:8080";
+    public String IP = "http://192.168.43.29:8080";
 }

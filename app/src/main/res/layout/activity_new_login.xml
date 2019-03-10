@@ -28,7 +28,7 @@
         android:textStyle="bold"
         app:drawableHeight="40dp"
         app:drawableWidth="120dp"
-        app:leftDrawable="@drawable/google" />
+        app:leftDrawable="@drawable/logo" />
 
     <LinearLayout
         android:id="@+id/body"

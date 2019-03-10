@@ -142,7 +142,9 @@ public class ModifyPersonalInfoActivity extends AppCompatActivity
         school.setText(UserInfo.school);
         stuId.setText(UserInfo.stu_id);
         tel.setText(UserInfo.tel);
-        avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        if(UserInfo.avatar != null && UserInfo.avatar != "") {
+            avatar.setImageBitmap(Base64AndBitmap.base64ToBitmap(UserInfo.avatar));
+        }
 
     }
 

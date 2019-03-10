@@ -10,10 +10,10 @@ import java.sql.*;
 public class DBManager {
 
     //数据库连接常量
-    public static final String DRIVER ="com.mysql.jdbc.Driver";
+    public static final String DRIVER ="com.mysql.cj.jdbc.Driver";
     public static  String USER = "root";
     public static  String PASSWORD = "201600800543";
-    public static final String URL ="jdbc:mysql://localhost:3306/lanlanApp";
+    public static final String URL ="jdbc:mysql://localhost:3306/express?characterEncoding=utf-8";
 
     //
     private static DBManager per = null;
